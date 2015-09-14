@@ -11,25 +11,25 @@ class Tugas_model extends CI_Model {
     }
 
     public function get_tugas_by_worker_id($worker_id){
-        $query = $this->db->query("select worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
+        $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
                                         from project, tugas, tugas_assignment, worker
                                         where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id'
-                                        order by tugas_assignment.creation_date DESC");
-        return $query->row_array();
+                                        order by tugas_assignment.tanggal_selesai DESC");
+        return $query->result_array();
     }
 
     public function get_tugas_by_tanggal_selesai($tanggal){
-        $query = $this->db->query("select worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
+        $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
                                         from project, tugas, tugas_assignment, worker
                                         where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND tugas_assignment.tanggal_selesai = '$tanggal'");
-        return $query->row_array();
+        return $query->result_array();
     }
 
     public function get_tugas_by_creation_date($tanggal){
         $query = $this->db->query("select worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
                                         from project, tugas, tugas_assignment, worker
                                         where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND tugas.creation_date = '$tanggal'");
-        return $query->row_array();
+        return $query->result_array();
     }
 
     public function get_all_tugas()

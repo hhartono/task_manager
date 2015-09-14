@@ -31,8 +31,14 @@ class Tugas extends CI_Controller {
 
     public function get_all_tugas_by_worker_id($worker_id){
         $worker_id = urldecode($worker_id);
+        $tanggal = date('Y-m-d');
         $tugas_all = $this->tugas_model->get_tugas_by_worker_id($worker_id);
-        echo json_encode($tugas_all);
+        foreach ($tugas_all as $tugas) {
+            $tanggal_selesai = $tugas['tanggal_selesai'];   
+        }
+        if($tanggal_selesai == '0000-00-00' || $tanggal_selesai == $tanggal){
+                echo json_encode($tugas_all);
+            }
     }
 
     public function get_all_tugas_by_tanggal_selesai(){

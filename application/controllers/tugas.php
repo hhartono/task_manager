@@ -101,8 +101,10 @@ class Tugas extends CI_Controller {
         }
     }
 
-    public function update_status_selesai($tugas_assignment_id){
+    public function update_status_selesai(){
         $response = array();
+
+        $tugas_assignment_id = $this->input->post('task_id');
         $process = $this->tugas_model->update_status_selesai($tugas_assignment_id);
 
         // display message according db status
@@ -115,6 +117,11 @@ class Tugas extends CI_Controller {
             $response['message'] = "Tugas gagal diselesaikan.";
             echo json_encode($response);
         }   
+    }
+
+    public function update_tugas($worker_id){
+        $data['tugas'] = $this->tugas_model->get_tugas_by_worker_id($worker_id);
+        $this->load->view('tugas/update_tugas', $data);
     }
 }
 

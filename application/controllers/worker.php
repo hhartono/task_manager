@@ -32,7 +32,7 @@ class Worker extends CI_Controller {
             $response['worker'] = $worker_all;
             echo json_encode($response);
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['worker'] = "Tugas tidak ditemukan";
             echo json_encode($response);
         }

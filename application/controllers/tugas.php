@@ -33,7 +33,7 @@ class Tugas extends CI_Controller {
             $response['tugas'] = $tugas_all;
             echo json_encode($response);
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['tugas'] = "Tugas tidak ditemukan";
             echo json_encode($response);
         }
@@ -55,7 +55,7 @@ class Tugas extends CI_Controller {
                 echo json_encode($response);
             }
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['tugas'] = "Tugas tidak ditemukan";
             echo json_encode($response);
         }
@@ -70,7 +70,7 @@ class Tugas extends CI_Controller {
             $response['tugas'] = $tugas_all;
             echo json_encode($response);
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['tugas'] = "Tugas tidak ditemukan";
             echo json_encode($response);
         }
@@ -86,7 +86,7 @@ class Tugas extends CI_Controller {
             $response['tugas'] = $tugas_all;
             echo json_encode($response);
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['tugas'] = "Tugas tidak ditemukan";
             echo json_encode($response);
         }

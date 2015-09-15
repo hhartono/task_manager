@@ -29,7 +29,7 @@ class Project extends CI_Controller {
             $response['project'] = $project_all;
             echo json_encode($response);
         }else{
-            $response['status'] = 1;
+            $response['status'] = 0;
             $response['project'] = "Project tidak ditemukan";
             echo json_encode($response);
         }

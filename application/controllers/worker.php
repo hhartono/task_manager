@@ -24,8 +24,18 @@ class Worker extends CI_Controller {
     }
 
     public function get_all_worker(){
+        $response = array();
+        
         $worker_all = $this->worker_model->get_all_workers();
-        echo json_encode($worker_all);
+        if(!empty($worker_all)){
+            $response['status'] = 1;
+            $response['worker'] = $worker_all;
+            echo json_encode($response);
+        }else{
+            $response['status'] = 1;
+            $response['worker'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
     }
 
     public function set_worker(){

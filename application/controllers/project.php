@@ -21,8 +21,18 @@ class Project extends CI_Controller {
     }
 
     public function get_all_project(){
+        $response = array();
+
         $project_all = $this->project_model->get_all_project();
-        echo json_encode($project_all);
+        if(!empty($project_all)){
+            $response['status'] = 1;
+            $response['project'] = $project_all;
+            echo json_encode($response);
+        }else{
+            $response['status'] = 1;
+            $response['project'] = "Project tidak ditemukan";
+            echo json_encode($response);
+        }
     }    
 
     public function set_project(){

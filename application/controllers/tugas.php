@@ -21,36 +21,75 @@ class Tugas extends CI_Controller {
     public function get_tugas_detail($tugas_id){
         $tugas_id = urldecode($tugas_id);
         $tugas_detail = $this->tugas_model->get_tugas_by_id($tugas_id);
+
         echo json_encode($tugas_detail);
     }
 
     public function get_all_tugas(){
+        $response = array();
         $tugas_all = $this->tugas_model->get_all_tugas();
-        echo json_encode($tugas_all);
+        if(!empty($tugas_all)){
+            $response['status'] = 1;
+            $response['tugas'] = $tugas_all;
+            echo json_encode($response);
+        }else{
+            $response['status'] = 1;
+            $response['tugas'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
     }
 
     public function get_all_tugas_by_worker_id($worker_id){
+        $response = array();
+
         $worker_id = urldecode($worker_id);
         $tanggal = date('Y-m-d');
         $tugas_all = $this->tugas_model->get_tugas_by_worker_id($worker_id);
-        foreach ($tugas_all as $tugas) {
-            $tanggal_selesai = $tugas['tanggal_selesai'];   
-        }
-        if($tanggal_selesai == '0000-00-00' || $tanggal_selesai == $tanggal){
-                echo json_encode($tugas_all);
+        if(!empty($tugas_all)){
+            foreach ($tugas_all as $tugas) {
+                $tanggal_selesai = $tugas['tanggal_selesai'];   
             }
+            if($tanggal_selesai == '0000-00-00' || $tanggal_selesai == $tanggal){
+                $response['status'] = 1;
+                $response['tugas'] = $tugas_all;
+                echo json_encode($response);
+            }
+        }else{
+            $response['status'] = 1;
+            $response['tugas'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
     }
 
     public function get_all_tugas_by_tanggal_selesai(){
+        $response = array();
         $tanggal = date('Y-m-d');
         $tugas_all = $this->tugas_model->get_tugas_by_tanggal_selesai($tanggal);
-        echo json_encode($tugas_all);
+        if(!empty($tugas_all)){
+            $response['status'] = 1;
+            $response['tugas'] = $tugas_all;
+            echo json_encode($response);
+        }else{
+            $response['status'] = 1;
+            $response['tugas'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
     }
 
     public function get_all_tugas_by_creation_date(){
+        $response = array();
+
         $tanggal = $this->input->post('tanggal');
         $tugas_all = $this->tugas_model->get_tugas_by_creation_date($tanggal);
-        echo json_encode($tugas_all);
+        if(!empty($tugas_all)){
+            $response['status'] = 1;
+            $response['tugas'] = $tugas_all;
+            echo json_encode($response);
+        }else{
+            $response['status'] = 1;
+            $response['tugas'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
     }
 
     public function set_tugas(){

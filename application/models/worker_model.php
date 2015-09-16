@@ -24,8 +24,8 @@ class Worker_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function set_worker(){
-        $nama = $this->input->post('nama');
+    public function set_worker($nama, $pass){
+        //$nama = $this->input->post('nama');
         if($nama !== false){
 
             $this->db->trans_start();
@@ -41,6 +41,7 @@ class Worker_model extends CI_Model {
             $data = array(
                 'id' => $this->db->insert_id(),
                 'username' => $nama,
+                'password' => $pass,
                 'worker_id' => $this->db->insert_id(),
                 'status' => 'worker'
             );

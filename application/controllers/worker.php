@@ -40,10 +40,11 @@ class Worker extends CI_Controller {
 
     public function set_worker(){
         $response = array();
-        if(!empty($this->input->post('nama'))){
+        if(!empty($this->input->post('nama')) && !empty($this->input->post('password'))){
             $nama = $this->input->post('nama');
+            $pass = $this->input->post('password');
 
-            $process = $this->worker_model->set_worker($nama);
+            $process = $this->worker_model->set_worker($nama, $pass);
 
             if($process){
                 $response['status'] = 1;

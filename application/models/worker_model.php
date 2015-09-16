@@ -27,13 +27,35 @@ class Worker_model extends CI_Model {
     public function set_worker(){
         $nama = $this->input->post('nama');
         if($nama !== false){
+
+            $this->db->trans_start();
+
             date_default_timezone_set('Asia/Jakarta');
 
             $data = array(
                 'nama' => $nama,
                 'creation_date' => date("Y-m-d H:i:s")
             );
-            return $this->db->insert('worker', $data);
+            $this->db->insert('worker', $data);
+
+            $data = array(
+                'id' => $this->db->insert_id(),
+                'username' => $nama,
+                'worker_id' => $this->db->insert_id(),
+                'status' => 'worker'
+            );
+            $this->db->insert('user', $data);
+
+            // complete database transaction
+            $this->db->trans_complete();
+
+            // return false if something went wrong
+            if ($this->db->trans_status() === FALSE){
+                return FALSE;
+            }else{
+                return $data;
+            }
+
         }else{
             return false;
         }

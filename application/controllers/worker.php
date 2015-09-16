@@ -48,6 +48,7 @@ class Worker extends CI_Controller {
             if($process){
                 $response['status'] = 1;
                 $response['message'] = "Worker berhasil disimpan.";
+                $response['worker'] = $process;
                 echo json_encode($response);
             }else{
                 $response['status'] = 0;

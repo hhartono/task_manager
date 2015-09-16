@@ -34,8 +34,9 @@ class Tugas_model extends CI_Model {
 
     public function get_all_tugas()
     {
-        $this->db->select('tugas.*');
-        $this->db->from('tugas');
+        $this->db->select('tugas.*, project.nama_project as nama_project');
+        $this->db->from('tugas, project');
+        $this->db->where('tugas.project_id = project.id');
         $query = $this->db->get();
 
         return $query->result_array();

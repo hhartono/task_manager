@@ -18,12 +18,12 @@ class User extends CI_Controller {
 
     	$response = array();
     	$name = $this->input->post('name');
-    	//$pass = $this->input->post('password');
+    	$pass = $this->input->post('password');
         // check all necessary input
         if(!empty($name)){
             // search for user id
             $database_input_array = array();
-            $user_detail = $this->user_model->get_user_by_name($name);
+            $user_detail = $this->user_model->get_user_by_name($name, $pass);
             
             if($user_detail){
                 $response['status'] = 1;

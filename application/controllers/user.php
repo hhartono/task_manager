@@ -28,6 +28,8 @@ class User extends CI_Controller {
             if($user_detail){
                 $response['status'] = 1;
                 $response['user'] = $user_detail;
+                $response['nama'] = $name;
+                $response['password'] = $pass;
                 echo json_encode($response);
             }else{
                 $response['status'] = 0;

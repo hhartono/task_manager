@@ -6,6 +6,12 @@
                     <input type="text" name="nama">
                 </div>
             </div>
+            <div class="da-form-row">
+                <label class="da-form-label">Password</label>
+                <div class="da-form-item large">
+                    <input type="text" name="password">
+                </div>
+            </div>
 
             <input type="submit" class="finish btn btn-danger" value="Proses">
         </div>

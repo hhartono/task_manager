@@ -11,7 +11,7 @@ class Tugas_model extends CI_Model {
     }
 
     public function get_tugas_by_worker_id($worker_id){
-        $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
+        $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, tugas_assignment.creation_date as creation_date, tugas_assignment.last_update_timestamp as last_update_timestamp
                                         from project, tugas, tugas_assignment, worker
                                         where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id'
                                         order by tugas_assignment.tanggal_selesai DESC");

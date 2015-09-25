@@ -53,6 +53,10 @@ class Tugas extends CI_Controller {
                 $response['status'] = 1;
                 $response['tugas'] = $tugas_all;
                 echo json_encode($response);
+            }else{
+                $response['status'] = 0;
+                $response['tugas'] = "Tugas tidak ditemukan";
+                echo json_encode($response);
             }
         }else{
             $response['status'] = 0;

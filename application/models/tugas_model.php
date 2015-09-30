@@ -12,14 +12,12 @@ class Tugas_model extends CI_Model {
 
     public function get_tugas_by_worker_id($worker_id){
         $tanggal = date('Y-m-d');
-        $query = $this->db->query("(select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, tugas_assignment.creation_date as creation_date, tugas_assignment.last_update_timestamp as last_update_timestamp
+        $query = $this->db->query("select * from ((select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, tugas_assignment.creation_date as creation_date, tugas_assignment.last_update_timestamp as last_update_timestamp
                                         from project, tugas, tugas_assignment, worker
-                                        where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id' AND tugas_assignment.tanggal_selesai = '0000-00-00'
-                                        order by project.id ASC) 
+                                        where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id' AND tugas_assignment.tanggal_selesai = '0000-00-00') 
                                         UNION (select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, tugas_assignment.creation_date as creation_date, tugas_assignment.last_update_timestamp as last_update_timestamp
                                         from project, tugas, tugas_assignment, worker
-                                        where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id' AND tugas_assignment.tanggal_selesai = '$tanggal'
-                                        order by project.id ASC)");
+                                        where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND worker.id = '$worker_id' AND tugas_assignment.tanggal_selesai = '$tanggal')) as tug order by tug.project");
         return $query->result_array();
     }
 

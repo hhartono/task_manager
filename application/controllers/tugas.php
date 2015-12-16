@@ -106,7 +106,11 @@ class Tugas extends CI_Controller {
 
     public function set_tugas(){
         $response = array();
-        if(!empty($this->input->post('deskripsi')) && !empty($this->input->post('worker')) && !empty($this->input->post('project'))){
+        $deskripsi = $this->input->post('deskripsi');
+        $worker = $this->input->post('worker');
+        $project = $this->input->post('project');
+
+        if(!empty($deskripsi) && !empty($worker) && !empty($project)){
             
             $database_input_array = array();
 

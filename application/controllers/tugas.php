@@ -58,9 +58,9 @@ class Tugas extends CI_Controller {
 
     public function get_all_tugas_by_project_id(){
         $response = array();
-        $project_id = $this->input->post('project_id');
+        // $project_id = $this->input->post('project_id');
         // $project_id = 8;
-        // $project_id = $this->uri->segment(3);
+        $project_id = $this->uri->segment(3);
         // $tugas_all = $this->tugas_model->get_tugas_by_project_id($project_id);
 
         $list_tugas_id = $this->tugas_model->get_tugas_id_by_project_id($project_id);
@@ -77,9 +77,9 @@ class Tugas extends CI_Controller {
         		// $t_creation_date = $lti->creation_date;
         		// $t_last_update_timestamp = $lti->last_update_timestamp;
 
-        		$tugas_by_tugas_id = $this->tugas_model->get_worker_by_tugas_id($t_id);
+        		$worker_by_tugas_id = $this->tugas_model->get_worker_by_tugas_id($t_id);
         		// append new object (worker) to existing object
-        		$list_tugas_id[$counter]->worker = $tugas_by_tugas_id;
+        		$list_tugas_id[$counter]->worker = $worker_by_tugas_id;
         		array_push($response_temp, $lti);
         		$counter++;
         	}

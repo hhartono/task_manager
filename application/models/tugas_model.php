@@ -49,7 +49,6 @@ class Tugas_model extends CI_Model {
             }
             return $data;
         }
-        // return $query->result_array();
     }
 
     public function get_worker_by_tugas_id($tugas_id){

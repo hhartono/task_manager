@@ -52,13 +52,25 @@ class Tugas_model extends CI_Model {
     }
 
     public function get_worker_by_tugas_id($tugas_id){
+        $data_worker = array();
         $query = $this->db->query("
             SELECT w.nama
             FROM tugas_assignment ta, worker w
             WHERE ta.tugas_id = '$tugas_id'
             AND w.id = ta.worker_id
         ");
-        return $query->result_array();
+        if($query->num_rows() > 0){
+            foreach ($query->result() as $row){
+                $data[] = $row;
+            }
+            //return $data;
+
+            foreach ($data as $dataworker) {
+                $data_worker[] = $dataworker->nama;
+            }
+            return $data_worker;
+        }
+        // return $query->result_array();
     }
 
     public function get_tugas_by_tanggal_selesai($tanggal){

@@ -37,8 +37,8 @@ class Project extends CI_Controller {
 
     public function set_project(){
         $response = array();
-        if(!empty($this->input->post('nama_project'))){
-            $nama_project = $this->input->post('nama_project');
+        $nama_project = $this->input->post('nama_project');
+        if(!empty($nama_project)){
 
             $process = $this->project_model->set_project($nama_project);
 

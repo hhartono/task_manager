@@ -75,18 +75,39 @@ class Tugas extends CI_Controller {
 
     public function get_all_tugas_by_project_id(){
         $response = array();
-
         $project_id = $this->input->post('project_id');
-        $tanggal = date('Y-m-d');
-        $tugas_all = $this->tugas_model->get_tugas_by_project_id($project_id);
-        if(!empty($tugas_all)){
-                $response['status'] = 1;
-                $response['tugas'] = $tugas_all;
-                echo json_encode($response);
+        // $project_id = 8;
+        // $project_id = $this->uri->segment(3);
+        // $tugas_all = $this->tugas_model->get_tugas_by_project_id($project_id);
+
+        $list_tugas_id = $this->tugas_model->get_tugas_id_by_project_id($project_id);
+        $size_list = sizeof($list_tugas_id);
+        $response_temp = array();
+        if(isset($list_tugas_id)){
+        	$tbt;
+        	$tugas_by_tugas_id;
+        	$counter = 0;
+        	foreach($list_tugas_id as $lti){
+        		$t_id = $lti->id;
+        		// $t_deskripsi = $lti->deskripsi;
+        		// $t_keterangan = $lti->keterangan;
+        		// $t_creation_date = $lti->creation_date;
+        		// $t_last_update_timestamp = $lti->last_update_timestamp;
+
+        		$worker_by_tugas_id = $this->tugas_model->get_worker_by_tugas_id($t_id);
+        		// append new object (worker) to existing object
+        		$list_tugas_id[$counter]->worker = $worker_by_tugas_id;
+        		array_push($response_temp, $lti);
+        		$counter++;
+        	}
+        	$response['status'] = 1;
+        	$response['tugas'] = $response_temp;
+        	echo json_encode($response);
+        	// print_r($response);
         }else{
-            $response['status'] = 0;
-            $response['tugas'] = "Tugas tidak ditemukan";
-            echo json_encode($response);
+        	$response['status'] = 0;
+        	$response['tugas'] = "Tugas tidak ditemukan";
+        	echo json_encode($response);
         }
     }
 
@@ -123,7 +144,11 @@ class Tugas extends CI_Controller {
 
     public function set_tugas(){
         $response = array();
-        if(!empty($this->input->post('deskripsi')) && !empty($this->input->post('worker')) && !empty($this->input->post('project'))){
+        $deskripsi = $this->input->post('deskripsi');
+        $worker = $this->input->post('worker');
+        $project = $this->input->post('project');
+
+        if(!empty($deskripsi) && !empty($worker) && !empty($project)){
             
             $database_input_array = array();
 

@@ -22,10 +22,55 @@ class Tugas_model extends CI_Model {
     }
 
     public function get_tugas_by_project_id($project_id){
-        $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.id as project_id, project.nama_project as project, tugas.deskripsi as deskripsi, tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, tugas_assignment.creation_date as creation_date, tugas_assignment.last_update_timestamp as last_update_timestamp
-                                        from project, tugas, tugas_assignment, worker
-                                        where tugas.project_id = project.id AND tugas.id = tugas_assignment.tugas_id AND worker.id = tugas_assignment.worker_id AND  project_id = '$project_id'");
+        $query = $this->db->query("
+            SELECT tugas_assignment.id as task_id, tugas_assignment.tugas_id, worker.nama as worker, 
+                    project.nama_project as project, tugas.deskripsi as deskripsi, 
+                    tugas.keterangan as keterangan, tugas_assignment.tanggal_selesai as tanggal_selesai, 
+                    tugas_assignment.creation_date as creation_date, 
+                    tugas_assignment.last_update_timestamp as last_update_timestamp
+            FROM project, tugas, tugas_assignment, worker
+            WHERE tugas.project_id = project.id 
+            AND tugas.id = tugas_assignment.tugas_id 
+            AND worker.id = tugas_assignment.worker_id 
+            AND project_id = '$project_id'"
+        );
         return $query->result_array();
+    }
+
+    public function get_tugas_id_by_project_id($project_id){
+        $query = $this->db->query("
+            SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp
+            FROM tugas t
+            WHERE t.project_id = '$project_id'
+        ");
+        if($query->num_rows() > 0){
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+    }
+
+    public function get_worker_by_tugas_id($tugas_id){
+        $data_worker = array();
+        $query = $this->db->query("
+            SELECT w.nama
+            FROM tugas_assignment ta, worker w
+            WHERE ta.tugas_id = '$tugas_id'
+            AND w.id = ta.worker_id
+        ");
+        if($query->num_rows() > 0){
+            foreach ($query->result() as $row){
+                $data[] = $row;
+            }
+            //return $data;
+
+            foreach ($data as $dataworker) {
+                $data_worker[] = $dataworker->nama;
+            }
+            return $data_worker;
+        }
+        // return $query->result_array();
     }
 
     public function get_tugas_by_tanggal_selesai($tanggal){

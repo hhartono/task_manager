@@ -56,6 +56,23 @@ class Tugas extends CI_Controller {
         }
     }
 
+    public function get_all_tugas_by_url_project_id($project_id){
+        $response = array();
+
+        $project_id = urldecode($project_id);
+        $tanggal = date('Y-m-d');
+        $tugas_all = $this->tugas_model->get_tugas_by_project_id($project_id);
+        if(!empty($tugas_all)){
+                $response['status'] = 1;
+                $response['tugas'] = $tugas_all;
+                echo json_encode($response);
+        }else{
+            $response['status'] = 0;
+            $response['tugas'] = "Tugas tidak ditemukan";
+            echo json_encode($response);
+        }
+    }
+
     public function get_all_tugas_by_project_id(){
         $response = array();
 

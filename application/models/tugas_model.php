@@ -39,9 +39,9 @@ class Tugas_model extends CI_Model {
 
     public function get_tugas_id_by_project_id($project_id){
         $query = $this->db->query("
-            SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp
-            FROM tugas t
-            WHERE t.project_id = '$project_id'
+            SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp, ta.tanggal_selesai
+            FROM tugas t, tugas_assignment ta
+            WHERE tugas.id = tugas_assignment.tugas_id AND t.project_id = '$project_id'
         ");
         if($query->num_rows() > 0){
             foreach ($query->result() as $row) {
@@ -54,7 +54,7 @@ class Tugas_model extends CI_Model {
     public function get_worker_by_tugas_id($tugas_id){
         $data_worker = array();
         $query = $this->db->query("
-            SELECT w.nama, ta.tanggal_selesai
+            SELECT w.nama
             FROM tugas_assignment ta, worker w
             WHERE ta.tugas_id = '$tugas_id'
             AND w.id = ta.worker_id

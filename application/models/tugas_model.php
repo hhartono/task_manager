@@ -41,7 +41,7 @@ class Tugas_model extends CI_Model {
         $query = $this->db->query("
             SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp, ta.tanggal_selesai
             FROM tugas t, tugas_assignment ta
-            WHERE tugas.id = tugas_assignment.tugas_id AND t.project_id = '$project_id'
+            WHERE t.id = ta.tugas_id AND t.project_id = '$project_id'
         ");
         if($query->num_rows() > 0){
             foreach ($query->result() as $row) {

@@ -54,7 +54,7 @@ class Tugas_model extends CI_Model {
     public function get_worker_by_tugas_id($tugas_id){
         $data_worker = array();
         $query = $this->db->query("
-            SELECT w.nama
+            SELECT w.nama, ta.tanggal_selesai
             FROM tugas_assignment ta, worker w
             WHERE ta.tugas_id = '$tugas_id'
             AND w.id = ta.worker_id

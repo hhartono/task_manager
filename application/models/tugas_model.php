@@ -39,9 +39,10 @@ class Tugas_model extends CI_Model {
 
     public function get_tugas_id_by_project_id($project_id){
         $query = $this->db->query("
-            SELECT distinct t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp, ta.tanggal_selesai
+            SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp, ta.tanggal_selesai
             FROM tugas t, tugas_assignment ta
             WHERE t.id = ta.tugas_id AND t.project_id = '$project_id'
+            GROUP BY t.id
         ");
         if($query->num_rows() > 0){
             foreach ($query->result() as $row) {

@@ -42,7 +42,7 @@ class Tugas_model extends CI_Model {
             SELECT t.id, t.deskripsi, t.keterangan, t.creation_date, t.last_update_timestamp, ta.tanggal_selesai
             FROM tugas t, tugas_assignment ta
             WHERE t.id = ta.tugas_id AND t.project_id = '$project_id'
-            GROUP BY t.id, ta.tanggal_selesai
+            GROUP BY t.id
         ");
         if($query->num_rows() > 0){
             foreach ($query->result() as $row) {

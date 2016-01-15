@@ -14,6 +14,7 @@ class Project_model extends CI_Model {
     {
         $this->db->select('project.*');
         $this->db->from('project');
+        $this->db->order_by('id','DESC');
         $query = $this->db->get();
 
         return $query->result_array();

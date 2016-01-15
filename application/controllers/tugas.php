@@ -78,8 +78,10 @@ class Tugas extends CI_Controller {
                 // $t_last_update_timestamp = $lti->last_update_timestamp;
 
                 $worker_by_tugas_id = $this->tugas_model->get_worker_by_tugas_id($t_id);
+                $worker_by_tugas_selesai = $this->tugas_model->get_worker_by_tugas_selesai($t_id);
                 // append new object (worker) to existing object
                 $list_tugas_id[$counter]->worker = $worker_by_tugas_id;
+                $list_tugas_id[$counter]->selesai = $worker_by_tugas_selesai;
                 array_push($response_temp, $lti);
                 $counter++;
             }
@@ -116,8 +118,10 @@ class Tugas extends CI_Controller {
         		// $t_last_update_timestamp = $lti->last_update_timestamp;
 
         		$worker_by_tugas_id = $this->tugas_model->get_worker_by_tugas_id($t_id);
+                $worker_by_tugas_selesai = $this->tugas_model->get_worker_by_tugas_selesai($t_id);
         		// append new object (worker) to existing object
         		$list_tugas_id[$counter]->worker = $worker_by_tugas_id;
+                $list_tugas_id[$counter]->selesai = $worker_by_tugas_selesai;
         		array_push($response_temp, $lti);
         		$counter++;
         	}

@@ -74,6 +74,29 @@ class Tugas_model extends CI_Model {
         // return $query->result_array();
     }
 
+    public function get_worker_by_tugas_selesai($tugas_id){
+        $data_worker = array();
+        $query = $this->db->query("
+            SELECT w.nama
+            FROM tugas_assignment ta, worker w
+            WHERE ta.tugas_id = '$tugas_id'
+            AND w.id = ta.worker_id
+            AND ta.tanggal_selesai != '0000-00-00'
+        ");
+        if($query->num_rows() > 0){
+            foreach ($query->result() as $row){
+                $data[] = $row;
+            }
+            //return $data;
+
+            foreach ($data as $dataworker) {
+                $data_worker[] = $dataworker->nama;
+            }
+            return $data_worker;
+        }
+        // return $query->result_array();
+    }
+
     public function get_tugas_by_tanggal_selesai($tanggal){
         $query = $this->db->query("select tugas_assignment.id as task_id, worker.nama as worker, project.nama_project as project, tugas.deskripsi as deskripsi, tugas_assignment.tanggal_selesai as tanggal_selesai
                                         from project, tugas, tugas_assignment, worker
